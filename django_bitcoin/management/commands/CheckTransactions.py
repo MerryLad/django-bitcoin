@@ -27,7 +27,7 @@ class Command(NoArgsCommand):
             print "starting round", time() - start_time
             # print "starting standard", time() - start_time
             transactions = bitcoind.bitcoind_api.listtransactions("*", 50, 0)
-            for t in transactions:
+            for t in transactions['transactions']:
                 if t[u'category'] != u'immature' and (not last_check_time or (int(t['time'])) >= last_check_time) and t[u'amount']>0:
                     dps = DepositTransaction.objects.filter(txid=t[u'txid'])
                     if dps.count() == 0:
